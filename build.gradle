@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group 'cc.i-mnam'
+group 'cc.imnam'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
