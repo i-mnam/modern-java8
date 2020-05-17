@@ -5,10 +5,25 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
 
-public class LamdaExampleReview {
+public class LambdaExampleReview {
     public static void main(String[] args) {
+
         filteringTest();
+
+        final int repeat = 5;
+        final List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7
+                ,8 , 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20);
+
+        System.out.println("\nLambdaExample.raceCondition");
+        /* 5번 반복 */
+        Stream.iterate(0, i -> i + 1)
+                .limit(repeat)
+                .forEach(i -> raceCondition(numbers));
+    }
+
+    private static void raceCondition(List<Integer> numbers) {
     }
 
     private static void filteringTest() {
@@ -55,13 +70,17 @@ public class LamdaExampleReview {
         final List<Integer> result5 = filter(list, greaterThan2.and(lessThan7));
         System.out.println("2 < n < 7 : " + result5);
 
+
+        // 공부 더 필요한 부분 //
+        System.out.println("====================");
+        System.out.println("Closure!! example.");
         /* Closure: 람다 바디에서 람다 바깥에 있는 factor (free variable) 접근
          * Note: 엄밀히 따지면 자바의 Closure는 variable이 아니라 거기 들은 값(value)에
          * 접근 하는겁니다 (capturing value).
          */
         int factor = 10; // effectively final
         final Comparator<Integer> comparator = (o1, o2) -> o1 > factor ? o1 : o1.compareTo(o2);
-        // 이게 왜 클로져인지 모르겠다..
+        System.out.println("====================");
     }
 
     private static <T> List<T> filter(final List<T> list, final Predicate<T> predicate) {
