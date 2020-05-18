@@ -24,18 +24,22 @@ public class OopAndFpExample {
 
         final Calculation addition = (i1, i2) -> i1 + i2;
         //!!!! function이 variable에 할당이 된다!! >> 더욱 다양한 기능을 구현 할 수 있다.
-        System.out.println("     addition :" + fpCalculatorService.calculate(addition, 11, 2));
-        System.out.println("   subtraction:" + fpCalculatorService.calculate((i1, i2) -> i1 - i2, 11,2));
-        System.out.println("Multiplication:" + fpCalculatorService.calculate((i1, i2) -> i1 * i2, 11, 2));
-        System.out.println("      Division:" + fpCalculatorService.calculate((i1, i2) -> i1 / i2, 40, 2));
+        System.out.println("     addition :" + fpCalculatorService.calculate2(addition, 11, 2));
+        System.out.println("   subtraction:" + fpCalculatorService.calculate2((i1, i2) -> i1 - i2, 11,2));
+        System.out.println("Multiplication:" + fpCalculatorService.calculate2((i1, i2) -> i1 * i2, 11, 2));
+        System.out.println("      Division:" + fpCalculatorService.calculate2((i1, i2) -> i1 / i2, 40, 2));
         // 추가 : 좀 더 복잡하게 활용
-        System.out.println("   custom calc:" + fpCalculatorService.calculate((i1, i2) -> ((i1 + i2) * 2) / i2, 40, 2));
+        System.out.println("   custom calc:" + fpCalculatorService.calculate2((i1, i2) -> ((i1 + i2) * 2) / i2, 40, 2));
     }
 
 }
 // strategy pattern
 interface Calculation {
     int calculate(int num1, int num2);
+
+    default void nothingFunc() {
+        System.out.println("nonthing!!");
+    }
 }
 
 class Addition implements Calculation { // dependency
@@ -111,8 +115,9 @@ class CalculatorService {
 }
 
 class FpCalculatorService {
-    public int calculate(Calculation calculation, int num1, int num2) {
+    public int calculate2(Calculation calculation, int num1, int num2) {
         if (num1 > 10 && num2 < num1) { //보일러플레이트 부분을 그대로 가져
+            calculation.nothingFunc();
             return calculation.calculate(num1, num2);
         } else {
             throw new IllegalArgumentException("Invalid input num1:" + num1 + "num2:" + num2);
